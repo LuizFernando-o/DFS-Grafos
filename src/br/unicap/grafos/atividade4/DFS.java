@@ -83,36 +83,34 @@ public class DFS {
     }
 
     public static void leitorTxt(String caminho) throws FileNotFoundException, IOException {
-        BufferedReader buffRead
-                = new BufferedReader(new FileReader(caminho));
-
-        linha = buffRead.readLine();
-        ordem = Integer.parseInt(linha); //capturar ordem (nº de vértices)
-
-        linha = buffRead.readLine();
-        tamanho = Integer.parseInt(linha); //capturar tamanho (nº de arestas)
-
-        for (int i = 0; i < ordem; ++i) {  //criando lista de adjacência
-            g.add(new LinkedList<>());
-        }
-
-        //inicializando vetores
-        cor = new String[ordem];
-        i = new int[ordem];
-        ante = new int[ordem];
-        f = new int[ordem];
-
-        //lendo txt e adicionando arestas
-        linha = buffRead.readLine();
-        while (linha != null) {
-            String vu[] = linha.split(" ");
-            int v = Integer.parseInt(vu[0]);
-            int u = Integer.parseInt(vu[1]);
-            g.get(v).add(u);
-            g.get(u).add(v);
+        try (BufferedReader buffRead = new BufferedReader(new FileReader(caminho))) {
             linha = buffRead.readLine();
+            ordem = Integer.parseInt(linha); //capturar ordem (nº de vértices)
+            
+            linha = buffRead.readLine();
+            tamanho = Integer.parseInt(linha); //capturar tamanho (nº de arestas)
+            
+            for (int j = 0; j < ordem; ++j) {  //criando lista de adjacência
+                g.add(new LinkedList<>());
+            }
+            
+            //inicializando vetores
+            cor = new String[ordem];
+            i = new int[ordem];
+            ante = new int[ordem];
+            f = new int[ordem];
+            
+            //lendo txt e adicionando arestas
+            linha = buffRead.readLine();
+            while (linha != null) {
+                String vu[] = linha.split(" ");
+                int v = Integer.parseInt(vu[0]);
+                int u = Integer.parseInt(vu[1]);
+                g.get(v).add(u);
+                g.get(u).add(v);
+                linha = buffRead.readLine();
+            }
         }
-        buffRead.close();
     }
 
 }
